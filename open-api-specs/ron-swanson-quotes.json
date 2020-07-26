@@ -1,0 +1,83 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Ron Swanson Quotes",
+      "description": "A HTTP API for retrieving Ron Swanson quotes",
+      "contact": {
+        "email": "james@jamesswright.co.uk",
+        "name": "James Wright",
+        "url": "https://jamesswright.co.uk"
+      }
+    },
+    "host": "ron-swanson-quotes.herokuapp.com",
+    "basePath": "/v2",
+    "schemes": [
+      "https"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/quotes": {
+        "get": {
+          "description": "Returns a single Ron Swanson quote wrapped in an array",
+          "summary": "Quotes_GET",
+          "operationId": "QuotesGet",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/quotes/{count}": {
+        "get": {
+          "description": "Returns {count} quotes in an array",
+          "summary": "QuotesByCount_GET",
+          "operationId": "QuotesByCountGet",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "count",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "headers": {}
+            }
+          }
+        }
+      }
+    },
+    "tags": []
+  }

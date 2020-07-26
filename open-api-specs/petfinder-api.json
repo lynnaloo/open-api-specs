@@ -1,0 +1,1215 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Petfinder API",
+    "description": "The Petfinder API allows you to access the Petfinder database of hundreds\nof thousands of pets ready for adoption and over ten thousand animal\nwelfare organizations.\n",
+    "contact": {
+      "email": "help@petfinder.com",
+      "name": "Petfinder API Help",
+      "url": "https://www.petfinder.com/developers/support/"
+    }
+  },
+  "host": "api.petfinder.com",
+  "basePath": "/v2",
+  "securityDefinitions": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "application",
+      "tokenUrl": "https://api.petfinder.com/v2/oauth2/token",
+      "scopes": {}
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/types": {
+      "get": {
+        "description": "Get Animal Types",
+        "summary": "animalTypes.list",
+        "tags": [
+          "Animal"
+        ],
+        "operationId": "TypesGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Type collection",
+            "schema": {
+              "$ref": "#/definitions/TypesResponse"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/types/{type}": {
+      "get": {
+        "description": "Get Animal Type",
+        "summary": "animalTypes.show",
+        "tags": [
+          "Animal"
+        ],
+        "operationId": "TypesByTypeGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Animal type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Type information",
+            "schema": {
+              "$ref": "#/definitions/TypesResponse1"
+            },
+            "headers": {}
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/TypesBreeds0Error"
+            }
+          }
+        }
+      }
+    },
+    "/types/{type}/breeds": {
+      "get": {
+        "description": "Get Animal Breeds",
+        "summary": "animalTypeBreeds.list",
+        "tags": [
+          "Animal"
+        ],
+        "operationId": "TypesBreedsByTypeGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Animal type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Breeds collection",
+            "schema": {
+              "$ref": "#/definitions/TypesBreedsResponse"
+            },
+            "headers": {}
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/TypesBreeds0Error"
+            }
+          }
+        }
+      }
+    },
+    "/animals": {
+      "get": {
+        "description": "Get Animals",
+        "summary": "animals.list",
+        "tags": [
+          "Animal"
+        ],
+        "operationId": "AnimalsGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "dog",
+              "cat",
+              "small-furry",
+              "bird",
+              "scales-fins-other",
+              "barnyard",
+              "rabbit",
+              "horse"
+            ],
+            "type": "string",
+            "description": "Filter results matching animal type"
+          },
+          {
+            "name": "breed",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter results matching animal breed"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "small",
+                "medium",
+                "large",
+                "extra-large"
+              ]
+            },
+            "description": "Filter results matching animal size"
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "male",
+                "female",
+                "unknown"
+              ]
+            },
+            "description": "Filter results matching animal gender"
+          },
+          {
+            "name": "age",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "baby",
+                "young",
+                "adult",
+                "senior"
+              ]
+            },
+            "description": "Filter results matching animal age"
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter results matching animal color"
+          },
+          {
+            "name": "coat",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "short",
+                "medium",
+                "long",
+                "wire",
+                "hairless",
+                "curly"
+              ]
+            },
+            "description": "Filter results matching animal coat"
+          },
+          {
+            "name": "organization",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter results by organization"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter results by name. Uses partial match."
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter results matching animal location (postal code, city/state, lat/long)"
+          },
+          {
+            "name": "distance",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "description": "Filter results by distance from given location"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "adoptable",
+              "adopted",
+              "found"
+            ],
+            "type": "string",
+            "description": "Filter by adoption status"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "recent",
+              "-recent",
+              "distance",
+              "-distance",
+              "random"
+            ],
+            "default": "recent",
+            "type": "string",
+            "description": "Field to sort by"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "default": 20,
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100.0,
+            "exclusiveMaximum": false,
+            "description": "Number of results to return"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "default": 1,
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "description": "Page of results to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Animal collection",
+            "schema": {
+              "$ref": "#/definitions/AnimalsResponse"
+            },
+            "headers": {}
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/TypesBreeds0Error"
+            }
+          }
+        }
+      }
+    },
+    "/animals/{id}": {
+      "get": {
+        "description": "Get Animal",
+        "summary": "animals.show",
+        "tags": [
+          "Animal"
+        ],
+        "operationId": "AnimalsByIdGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": "Animal ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Animal",
+            "schema": {
+              "$ref": "#/definitions/AnimalsResponse1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/organizations": {
+      "get": {
+        "description": "Get Organizations",
+        "summary": "organizations.list",
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "OrganizationsGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter results matching organization name"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter results by location (_postal code_, _city/state_, or _lat/long_)"
+          },
+          {
+            "name": "distance",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "description": "Filter results by distance from given location"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter results by country"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter results by state"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Search on _name_, _city_, _state_; Fuzzy search that includes synonyms, punctuation, etc."
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "enum": [
+              "distance",
+              "-distance",
+              "name",
+              "-name",
+              "country",
+              "-country",
+              "state",
+              "-state"
+            ],
+            "type": "string",
+            "description": "Sort results by field"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "default": 20,
+            "type": "integer",
+            "format": "int32",
+            "maximum": 100.0,
+            "exclusiveMaximum": false,
+            "description": "Number of results to return"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "default": 1,
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "description": "Page of results to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization collection",
+            "schema": {
+              "$ref": "#/definitions/OrganizationsResponse"
+            },
+            "headers": {}
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/TypesBreeds0Error"
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{id}": {
+      "get": {
+        "description": "Get Organization",
+        "summary": "organizations.show",
+        "tags": [
+          "Organization"
+        ],
+        "operationId": "OrganizationsByIdGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Organization ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization",
+            "schema": {
+              "$ref": "#/definitions/OrganizationsResponse1"
+            },
+            "headers": {}
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/TypesBreeds0Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Pagination": {
+      "title": "Pagination",
+      "type": "object",
+      "properties": {
+        "count_per_page": {
+          "example": 20,
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_count": {
+          "example": 320,
+          "type": "integer",
+          "format": "int32"
+        },
+        "current_page": {
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_pages": {
+          "example": 16,
+          "type": "integer",
+          "format": "int32"
+        },
+        "_links": {
+          "$ref": "#/definitions/Links"
+        }
+      }
+    },
+    "Photo": {
+      "title": "Photo",
+      "type": "object",
+      "properties": {
+        "small": {
+          "type": "string"
+        },
+        "medium": {
+          "type": "string"
+        },
+        "large": {
+          "type": "string"
+        },
+        "full": {
+          "type": "string"
+        }
+      }
+    },
+    "Link": {
+      "title": "Link",
+      "type": "object",
+      "properties": {
+        "href": {
+          "description": "Relative URL to linked resource",
+          "type": "string"
+        }
+      }
+    },
+    "LinkNullable": {
+      "title": "LinkNullable",
+      "type": "object",
+      "properties": {
+        "href": {
+          "description": "Relative URL to linked resource",
+          "type": "string"
+        }
+      }
+    },
+    "AnimalType": {
+      "title": "AnimalType",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "coats": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "colors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "genders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "_links": {
+          "$ref": "#/definitions/Links1"
+        }
+      }
+    },
+    "AnimalBreed": {
+      "title": "AnimalBreed",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "_links": {
+          "$ref": "#/definitions/Links2"
+        }
+      }
+    },
+    "Animal": {
+      "title": "Animal",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "organization_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "species": {
+          "type": "string"
+        },
+        "breeds": {
+          "$ref": "#/definitions/Breeds"
+        },
+        "colors": {
+          "$ref": "#/definitions/Colors"
+        },
+        "age": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "coat": {
+          "type": "string"
+        },
+        "attributes": {
+          "$ref": "#/definitions/Attributes"
+        },
+        "environment": {
+          "$ref": "#/definitions/Environment"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "photos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Photo"
+          }
+        },
+        "status": {
+          "description": "Adoption status",
+          "type": "string"
+        },
+        "published_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "contact": {
+          "$ref": "#/definitions/Contact"
+        },
+        "_links": {
+          "$ref": "#/definitions/Links3"
+        }
+      }
+    },
+    "Organization": {
+      "title": "Organization",
+      "type": "object",
+      "properties": {
+        "id": {
+          "example": "NJ333",
+          "type": "string"
+        },
+        "name": {
+          "example": "A+ Pet Shelter",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "hours": {
+          "$ref": "#/definitions/Hours"
+        },
+        "url": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "mission_statement": {
+          "type": "string"
+        },
+        "adoption": {
+          "$ref": "#/definitions/Adoption"
+        },
+        "social_media": {
+          "$ref": "#/definitions/SocialMedia"
+        },
+        "photos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Photo"
+          }
+        },
+        "_links": {
+          "$ref": "#/definitions/Links4"
+        }
+      }
+    },
+    "Address": {
+      "title": "Address",
+      "type": "object",
+      "properties": {
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    },
+    "Adoption": {
+      "title": "Adoption",
+      "type": "object",
+      "properties": {
+        "policy": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "age": {
+      "title": "age",
+      "example": "baby",
+      "type": "string",
+      "enum": [
+        "baby",
+        "young",
+        "adult",
+        "senior"
+      ]
+    },
+    "AnimalsResponse": {
+      "title": "AnimalsResponse",
+      "type": "object",
+      "properties": {
+        "animals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Animal"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        }
+      }
+    },
+    "AnimalsResponse1": {
+      "title": "AnimalsResponse1",
+      "type": "object",
+      "properties": {
+        "animal": {
+          "$ref": "#/definitions/Animal"
+        }
+      }
+    },
+    "Attributes": {
+      "title": "Attributes",
+      "type": "object",
+      "properties": {
+        "spayed_neutered": {
+          "type": "boolean"
+        },
+        "house_trained": {
+          "type": "boolean"
+        },
+        "declawed": {
+          "type": "boolean"
+        },
+        "special_needs": {
+          "type": "boolean"
+        },
+        "shots_current": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Breeds": {
+      "title": "Breeds",
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": "string"
+        },
+        "mixed": {
+          "type": "boolean"
+        },
+        "unknown": {
+          "type": "boolean"
+        }
+      }
+    },
+    "coat": {
+      "title": "coat",
+      "example": "short",
+      "type": "string",
+      "enum": [
+        "short",
+        "medium",
+        "long",
+        "wire",
+        "hairless",
+        "curly"
+      ]
+    },
+    "Colors": {
+      "title": "Colors",
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": "string"
+        },
+        "tertiary": {
+          "type": "string"
+        }
+      }
+    },
+    "Contact": {
+      "title": "Contact",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        }
+      }
+    },
+    "Environment": {
+      "title": "Environment",
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "boolean"
+        },
+        "dogs": {
+          "type": "boolean"
+        },
+        "cats": {
+          "type": "boolean"
+        }
+      }
+    },
+    "gender": {
+      "title": "gender",
+      "example": "male",
+      "type": "string",
+      "enum": [
+        "male",
+        "female",
+        "unknown"
+      ]
+    },
+    "Hours": {
+      "title": "Hours",
+      "type": "object",
+      "properties": {
+        "sunday": {
+          "type": "string"
+        },
+        "monday": {
+          "type": "string"
+        },
+        "tuesday": {
+          "type": "string"
+        },
+        "wednesday": {
+          "type": "string"
+        },
+        "thursday": {
+          "type": "string"
+        },
+        "friday": {
+          "type": "string"
+        },
+        "saturday": {
+          "type": "string"
+        }
+      }
+    },
+    "Links": {
+      "title": "Links",
+      "type": "object",
+      "properties": {
+        "previous": {
+          "$ref": "#/definitions/LinkNullable"
+        },
+        "next": {
+          "$ref": "#/definitions/LinkNullable"
+        }
+      }
+    },
+    "Links1": {
+      "title": "Links1",
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/definitions/Link"
+        },
+        "breeds": {
+          "$ref": "#/definitions/Link"
+        }
+      }
+    },
+    "Links2": {
+      "title": "Links2",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/Link"
+        }
+      }
+    },
+    "Links3": {
+      "title": "Links3",
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/definitions/Link"
+        },
+        "type": {
+          "$ref": "#/definitions/Link"
+        },
+        "organization": {
+          "$ref": "#/definitions/Link"
+        }
+      }
+    },
+    "Links4": {
+      "title": "Links4",
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/definitions/Link"
+        },
+        "animals": {
+          "$ref": "#/definitions/Link"
+        }
+      }
+    },
+    "OrganizationsResponse": {
+      "title": "OrganizationsResponse",
+      "type": "object",
+      "properties": {
+        "organizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Organization"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        }
+      }
+    },
+    "OrganizationsResponse1": {
+      "title": "OrganizationsResponse1",
+      "type": "object",
+      "properties": {
+        "organization": {
+          "$ref": "#/definitions/Organization"
+        }
+      }
+    },
+    "size": {
+      "title": "size",
+      "example": "small",
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large",
+        "extra-large"
+      ]
+    },
+    "SocialMedia": {
+      "title": "SocialMedia",
+      "type": "object",
+      "properties": {
+        "facebook": {
+          "type": "string"
+        },
+        "instagram": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        },
+        "pinterest": {
+          "type": "string"
+        },
+        "youtube": {
+          "type": "string"
+        }
+      }
+    },
+    "sort": {
+      "title": "sort",
+      "example": "recent",
+      "type": "string",
+      "enum": [
+        "recent",
+        "-recent",
+        "distance",
+        "-distance",
+        "random"
+      ]
+    },
+    "sort1": {
+      "title": "sort1",
+      "example": "distance",
+      "type": "string",
+      "enum": [
+        "distance",
+        "-distance",
+        "name",
+        "-name",
+        "country",
+        "-country",
+        "state",
+        "-state"
+      ]
+    },
+    "status": {
+      "title": "status",
+      "example": "adoptable",
+      "type": "string",
+      "enum": [
+        "adoptable",
+        "adopted",
+        "found"
+      ]
+    },
+    "type": {
+      "title": "type",
+      "example": "dog",
+      "type": "string",
+      "enum": [
+        "dog",
+        "cat",
+        "small-furry",
+        "bird",
+        "scales-fins-other",
+        "barnyard",
+        "rabbit",
+        "horse"
+      ]
+    },
+    "TypesBreeds0Error": {
+      "title": "TypesBreeds0Error",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "TypesBreedsResponse": {
+      "title": "TypesBreedsResponse",
+      "type": "object",
+      "properties": {
+        "breeds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnimalBreed"
+          }
+        }
+      }
+    },
+    "TypesResponse": {
+      "title": "TypesResponse",
+      "type": "object",
+      "properties": {
+        "types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnimalType"
+          }
+        }
+      }
+    },
+    "TypesResponse1": {
+      "title": "TypesResponse1",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/AnimalType"
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "auth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Animal",
+      "description": "Endpoints for animals"
+    },
+    {
+      "name": "Organization",
+      "description": "Endpoints for organizations."
+    }
+  ],
+  "externalDocs": {
+    "url": "https://www.petfinder.com/developers/v2/docs/",
+    "description": "Petfinder API Documentation"
+  }
+}

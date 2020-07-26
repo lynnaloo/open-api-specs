@@ -1,0 +1,34 @@
+swagger: '2.0'
+info:
+  description: Near Earth Object Web Service
+  version: "0.2"
+  title: NeowS
+paths:
+  /neo/rest/v1/feed:
+    get:
+      produces:
+        - application/json
+      parameters:
+        - name: end_date
+          in: query
+          required: false
+          type: string
+          x-example: '2020-07-30'
+        - name: detailed
+          in: query
+          required: false
+          type: string
+          x-example: 'true'
+        - name: api_key
+          in: query
+          required: false
+          type: string
+          x-example: DEMO_KEY
+        - name: start_date
+          in: query
+          required: false
+          type: string
+          x-example: '2020-07-23'
+      responses:
+        '200':
+          description: response
